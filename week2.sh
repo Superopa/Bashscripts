@@ -26,26 +26,33 @@ create_destdir() {
 	mdate=$(date +%m);
 	destdir=/home/administrator/images;
 	if [ "$sort" = "week" ]; then
-		mkdir $destdir/week/$wdate;
-		destdir=$destdir/week/$wdate;
+		destdir=$destdir/maand/$wdate;
+		if [ ! -d "$destdir" ]; then
+			mkdir $destdir;
+		fi
 	elif [ "$sort" = "maand" ]; then
-		mkdir $destdir/maand/$mdate;
 		destdir=$destdir/maand/$mdate;
+		if [ ! -d "$destdir" ]; then
+			mkdir $destdir;
+		fi
 	else 	echo "Verkeerde input voor de sortering. Start het programma opnieuw.";
 		exit 1;
 	fi
 	echo $destdir;
 }
+copy_files() {
+	for file in "$1"/*
+	do
+		cp $file $destdir
+		srcmd5=($(md5sum $file))
+		dstmd5=($(md5sum $destdir/${file##*/}))
+		if [ "$srcmd5" = "$dstmd5" ]; then
+		rm $file
+		fi
+	done
+}
+
 directory=$(get_sourcedest);
 sort=$(get_sort);
 destdir=$(create_destdir);
-for file in "$directory"/*
-do
-	cp $file $destdir
-	srcmd5=($(md5sum $file))
-	dstmd5=($(md5sum $destdir/${file##*/}))
-	if [ "$srcmd5" = "$dstmd5" ]; then
-	rm $file
-	fi
-done
-
+copy_files $directory
