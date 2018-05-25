@@ -21,22 +21,24 @@ get_sort() {
 	done
 	echo $sort;
 }
+create_destdir() {
+	wdate=$(date +%V);
+	mdate=$(date +%m);
+	destdir=/home/administrator/images;
+	if [ "$sort" = "week" ]; then
+		mkdir $destdir/week/$wdate;
+		destdir=$destdir/week/$wdate;
+	elif [ "$sort" = "maand" ]; then
+		mkdir $destdir/maand/$mdate;
+		destdir=$destdir/maand/$mdate;
+	else 	echo "Verkeerde input voor de sortering. Start het programma opnieuw.";
+		exit 1;
+	fi
+	echo $destdir;
+}
 directory=$(get_sourcedest);
 sort=$(get_sort);
-destdir=/home/administrator/images;
-wdate=$(date +%V);
-mdate=$(date +%m);
-if [ "$sort" = "week" ]; then
-	echo $sort;
-	mkdir $destdir/week/$wdate;
-	destdir=$destdir/week/$wdate;
-elif [ "$sort" = "maand" ]; then
-	echo $sort;
-	mkdir $destdir/maand/$mdate;
-	destdir=$destdir/maand/$mdate;
-else 	echo "Verkeerde input voor de sortering. Start het programma opnieuw.";
-	exit 1;
-fi
+destdir=$(create_destdir);
 for file in "$directory"/*
 do
 	cp $file $destdir
