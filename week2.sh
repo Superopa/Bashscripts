@@ -22,11 +22,12 @@ get_sort() {
 	echo $sort;
 }
 create_destdir() {
+	sort=$(get_sort);
 	wdate=$(date +%V);
 	mdate=$(date +%m);
 	destdir=/home/administrator/images;
 	if [ "$sort" = "week" ]; then
-		destdir=$destdir/maand/$wdate;
+		destdir=$destdir/week/$wdate;
 		if [ ! -d "$destdir" ]; then
 			mkdir $destdir;
 		fi
@@ -35,7 +36,7 @@ create_destdir() {
 		if [ ! -d "$destdir" ]; then
 			mkdir $destdir;
 		fi
-	else 	echo "Verkeerde input voor de sortering. Start het programma opnieuw.";
+	else
 		exit 1;
 	fi
 	echo $destdir;
@@ -50,9 +51,10 @@ copy_files() {
 		rm $file
 		fi
 	done
+	echo "Uw nieuw folder ziet er als volgt uit: ";
+	tree $destdir;
 }
 
 directory=$(get_sourcedest);
-sort=$(get_sort);
 destdir=$(create_destdir);
-copy_files $directory
+copy_files $directory;
