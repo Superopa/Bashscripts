@@ -1,20 +1,33 @@
 #!/bin/bash
 #Script voor soorteren van foto's
-clear
-read -p "Geef de directory op waar het bestand staat (bijv. \home\administrator\imgs): " directory;
-read -p "Sorteren op week of maand? :" sort
-destdir=/home/administrator/images
-wdate=$(date +%V)
-mdate=$(date +%m)
+clear;
+directory="";
+sort="";
+while [ -z "$directory" ]; do
+	read -p "Geef de directory op waar het bestand staat (bijv. /home/administrator/imgs): " directory;
+	if [ -z "$directory" ]; then
+		echo "Er moet een directory worden opgegeven!";
+	fi
+done
+while [ -z "$sort" ]; do
+	read -p "Sorteren op week of maand? :" sort
+	if [ -z "$sort" ]; then
+		echo "Er moet een keuze gemaakt worden tussen week of maand!";
+	fi
+done
+destdir=/home/administrator/images;
+wdate=$(date +%V);
+mdate=$(date +%m);
 if [ "$sort" = "week" ]; then
 	echo $sort;
-	mkdir $destdir/week/$wdate
-	destdir=$destdir/week/$wdate
+	mkdir $destdir/week/$wdate;
+	destdir=$destdir/week/$wdate;
 elif [ "$sort" = "maand" ]; then
 	echo $sort;
-	mkdir $destdir/maand/$mdate
-	destdir=$destdir/maand/$mdate
-else echo "Prutser";
+	mkdir $destdir/maand/$mdate;
+	destdir=$destdir/maand/$mdate;
+else 	echo "Verkeerde input voor de sortering. Start het programma opnieuw.";
+	exit 1;
 fi
 for file in "$directory"/*
 do
