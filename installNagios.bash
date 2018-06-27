@@ -1,5 +1,6 @@
 #!/bin/bash
 #Script voor het maken van een minion
+#source https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu
 echo "Eerst wordt de machine ge-update en de benodigde bestanden geinstalleerd...";
 sudo apt-get install -y python-software-properties build-essential;
 sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php;
