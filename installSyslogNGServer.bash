@@ -3,7 +3,7 @@
 echo "Dit script installeert syslog-ng en maakt hiervan een server.";
 sudo apt-get install syslog-ng;
 echo "Maakt een back-up van de standaard config file.";
-sudo mv /etc/syslog-ng/syslog-ng.conf /etc/syslog/syslog-ng.conf.BAK;
+sudo mv /etc/syslog-ng/syslog-ng.conf /etc/syslog-ng/syslog-ng.conf.BAK;
 echo "Maakt nu een nieuwe config file.";
 echo "
 @version: 3.5
@@ -27,7 +27,7 @@ echo "
             group("root")
             perm(0777)
             ); };
-    log { source(s_local); source(s_network); destination(d_logs); };" >> /etc/syslog/syslog-ng.conf
+    log { source(s_local); source(s_network); destination(d_logs); };" >> /etc/syslog-ng/syslog-ng.conf
 echo "Het bestand 'logs.txt' wordt nu gemaakt in het nieuwe mapje /var/log/syslog-ng.";
 sudo mkdir /var/log/syslog-ng;
 sudo touch /var/log/syslog-ng/logs.txt;
