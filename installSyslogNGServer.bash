@@ -5,8 +5,7 @@ sudo apt-get install syslog-ng;
 echo "Maakt een back-up van de standaard config file.";
 sudo mv /etc/syslog-ng/syslog-ng.conf /etc/syslog-ng/syslog-ng.conf.BAK;
 echo "Maakt nu een nieuwe config file.";
-echo "
-@version: 3.5
+echo '@version: 3.5
 @include "scl.conf"
 @include "`scl-root`/system/tty10.conf"
     options {
@@ -19,7 +18,7 @@ echo "
         syslog(transport(tcp) port(514));
         };
     destination d_local {
-    file("/var/log/syslog-ng/messages_${HOST}"); };
+    file('"/var/log/syslog-ng/messages_${HOST}"'); };
     destination d_logs {
         file(
             "/var/log/syslog-ng/logs.txt"
@@ -27,7 +26,7 @@ echo "
             group("root")
             perm(0777)
             ); };
-    log { source(s_local); source(s_network); destination(d_logs); };" >> /etc/syslog-ng/syslog-ng.conf
-echo "Het bestand 'logs.txt' wordt nu gemaakt in het nieuwe mapje /var/log/syslog-ng.";
+    log { source(s_local); source(s_network); destination(d_logs); };' >> /etc/syslog-ng/syslog-ng.conf
+echo "Het bestand logs.txt wordt nu gemaakt in het nieuwe mapje /var/log/syslog-ng.";
 sudo mkdir /var/log/syslog-ng;
 sudo touch /var/log/syslog-ng/logs.txt;
