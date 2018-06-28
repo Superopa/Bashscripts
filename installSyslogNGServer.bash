@@ -18,7 +18,7 @@ echo '@version: 3.5
         syslog(transport(tcp) port(514));
         };
     destination d_local {
-    file('"/var/log/syslog-ng/messages_${HOST}"'); };
+    file("/var/log/syslog-ng/messages_${HOST}"); };
     destination d_logs {
         file(
             "/var/log/syslog-ng/logs.txt"
