@@ -30,3 +30,5 @@ echo '@version: 3.5
 echo "Het bestand logs.txt wordt nu gemaakt in het nieuwe mapje /var/log/syslog-ng.";
 sudo mkdir /var/log/syslog-ng;
 sudo touch /var/log/syslog-ng/logs.txt;
+sudo systemctl start syslog-ng;
+sudo systemctl enable syslog-ng;
